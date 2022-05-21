@@ -17,8 +17,8 @@ export const productStore = {
 
     actions: {
         async fetchProducts({commit}) {
-            let products = await productApi.getProducts()
-            commit("setProducts", products)
+            let response = await productApi.getProducts()
+            commit("setProducts", response.data)
         }
     },
 
