@@ -3,6 +3,7 @@ import Login from '../components/Login.vue'
 import HomeView from '../views/HomeView.vue'
 import { Role } from '../_helpers/role'
 import store from '../stores/store-config'
+import RegistrationView from "../views/RegistrationView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,6 +42,11 @@ const router = createRouter({
         store.dispatch('authStore/logOut');
         next({path: '/'})
       }
+    },
+    {
+      path: '/store/register',
+      name: 'register',
+      component: RegistrationView,
     }
   ]
 })
