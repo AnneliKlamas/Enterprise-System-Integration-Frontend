@@ -1,11 +1,11 @@
-import axios from "axios";
+import {Backend} from "../axios-config";
 
 export default {
     login: function(context, username, password, redirect) {
         let token = btoa(username + ":" + password);
 
         // do not forget to change the port to the right one, where your Spring Boot Application is running
-        axios.get("http://localhost:8081/login", { headers: { 'Authorization': `Basic ${token}` } })
+        Backend.get("login", { headers: { 'Authorization': `Basic ${token}` } })
             .then(response => {
                 localStorage.setItem('user-token', token);
                 localStorage.setItem('user-roles', response.data);
