@@ -1,9 +1,8 @@
 import { Backend } from "../axios-config"
+import auth from "../_helpers/auth";
 
 export const getProducts = () => {
     return Backend.get("products", {
-        headers: {
-            'Authorization': 'Basic ' + localStorage.getItem('user-token')
-        }
+        headers: auth.getHeader()
     })
 };
