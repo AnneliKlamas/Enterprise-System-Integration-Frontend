@@ -4,6 +4,7 @@
     <router-link to="/products" class="nav-item">Products</router-link>
     <router-link to="/logout" class="nav-item" v-if="isLoggedIn">Logout</router-link>
     <router-link to="/login" class="nav-item" v-else>Login</router-link>
+    <router-link to="/register" class="nav-item" v-if="!isLoggedIn">Register</router-link>
   </div>
 
 </template>

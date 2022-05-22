@@ -44,7 +44,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/store/register',
+      path: '/register',
       name: 'register',
       component: RegistrationView,
     },
