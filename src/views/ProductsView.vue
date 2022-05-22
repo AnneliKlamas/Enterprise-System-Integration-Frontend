@@ -26,7 +26,7 @@
 import { createNamespacedHelpers } from "vuex"
 import * as productsApi from "../stores/product-api";
 
-const { mapGetters, mapActions } = createNamespacedHelpers("productStore")
+const { mapGetters, mapActions, mapMutations } = createNamespacedHelpers("productStore")
 export default {
   name: "ProductsView",
 
@@ -35,13 +35,13 @@ export default {
       columns: ["ID", "NAME", "CATEGORY", "PRICE"],
       quantity: 1,
       product: null,
-      orderId: null,
     }
   },
 
   computed: {
     ...mapGetters({
       products: "getProducts",
+      orderId: "getOrderId"
     })
   },
 
@@ -54,10 +54,15 @@ export default {
       fetchProducts: "fetchProducts"
     }),
 
+    ...mapMutations({
+      setOrderId: "setOrderId"
+    }),
+
+
     async addProduct(id) {
       if(this.orderId === null) {
         await productsApi.createOrder().then((response) =>
-        this.orderId = response.data)
+        this.setOrderId(response.data))
       }
       await productsApi.addProduct(id, this.orderId, this.quantity)
       this.quantity=1
