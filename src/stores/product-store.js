@@ -5,7 +5,8 @@ export const productStore = {
 
     state() {
         return {
-            products: []
+            products: [],
+            orderId: null
         }
     },
 
@@ -13,6 +14,9 @@ export const productStore = {
         setProducts(state, products) {
             state.products = products
         },
+        setOrderId(state, id) {
+            state.orderId = id
+        }
     },
 
     actions: {
@@ -25,6 +29,9 @@ export const productStore = {
     getters: {
         getProducts(state){
             return state.products
+        },
+        getOrderId(state) {
+            return state.orderId;
         }
     }
 }

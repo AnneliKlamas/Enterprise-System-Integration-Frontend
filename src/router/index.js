@@ -54,6 +54,12 @@ const router = createRouter({
       name: 'users',
       component: UsersView,
       meta: {requiredRoles: [Role.Admin]}
+    },
+    {
+      path: '/cart/:orderID',
+      name: 'cart',
+      component: () => import('../views/CartView.vue'),
+      meta: {requiredRoles: []}
     }
   ]
 })
