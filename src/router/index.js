@@ -46,7 +46,13 @@ const router = createRouter({
       path: '/store/register',
       name: 'register',
       component: RegistrationView,
-    }
+    },
+    {
+      path: '/cart/:orderID',
+      name: 'cart',
+      component: () => import('../views/CartView.vue'),
+      meta: {requiredRoles: []}
+    },
   ]
 })
 

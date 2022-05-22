@@ -7,7 +7,10 @@ export const messages = {
                 CATEGORY: "Category",
                 NAME: "Name",
                 PRICE: "Price",
-            }
+                PRODUCT_ID: "Product ID",
+                QUANTITY: "Quantity"
+            },
+            add: "Add",
         },
         register: {
             name: "Name",
