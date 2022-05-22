@@ -8,6 +8,15 @@ export const messages = {
                 NAME: "Name",
                 PRICE: "Price",
             }
+        },
+        register: {
+            name: "Name",
+            enterName: "Enter name",
+            password: "Password",
+            enterPassword: "Enter password",
+            role: "Role",
+            enterRole: "Enter role",
+            submit: "Submit"
         }
     }
 }
