@@ -15,7 +15,11 @@
   </div>
 </template>
 <script>
-import auth from '../_helpers/auth';
+import { createNamespacedHelpers } from 'vuex';
+import { Backend } from '../axios-config';
+
+const { mapActions} = createNamespacedHelpers('authStore');
+
 export default {
   name: 'Login',
   data: function() {
@@ -25,8 +29,25 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['logIn']),
     login:  function() {
-      auth.login(this, this.username, this.password, this.$route.query.returnUrl || '/');
+      let token = btoa(this.username + ":" + this.password);
+
+        // do not forget to change the port to the right one, where your Spring Boot Application is running
+      Backend.get("login", { headers: { 'Authorization': `Basic ${token}` } })
+        .then(response => {
+
+            this.logIn({
+              username: this.username,
+              token: token,
+              roles: response.data
+            });
+
+            this.$router.push({path: this.$route.query.returnUrl || '/'});
+        })
+        .catch(error => {
+            console.log(error);
+        });
     }
   }
 }
