@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import { Role } from '../_helpers/role'
 import store from '../stores/store-config'
 import RegistrationView from "../views/RegistrationView.vue";
+import UsersView from '../views/UsersView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,11 +50,17 @@ const router = createRouter({
       component: RegistrationView,
     },
     {
+      path: '/admin/users',
+      name: 'users',
+      component: UsersView,
+      meta: {requiredRoles: [Role.Admin]}
+    },
+    {
       path: '/cart/:orderID',
       name: 'cart',
       component: () => import('../views/CartView.vue'),
       meta: {requiredRoles: []}
-    },
+    }
   ]
 })
 
@@ -66,7 +73,7 @@ router.beforeEach((to, from, next) => {
   const isAuthorized = (requiredRoles) => {
     if (requiredRoles && isAuthenticated) {
         if (requiredRoles.length > 0) {
-            if (requiredRoles.includes(userRoles)) {
+            if (requiredRoles.includes(userRoles[0])) {
                 return true;
             } else {
                 return false;
