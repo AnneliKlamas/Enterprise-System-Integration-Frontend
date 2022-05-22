@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import auth from '../_helpers/auth'
 import Login from '../components/Login.vue'
 import HomeView from '../views/HomeView.vue'
+import { Role } from '../_helpers/role'
+import store from '../stores/store-config'
 import RegistrationView from "../views/RegistrationView.vue";
 
 const router = createRouter({
@@ -38,8 +39,8 @@ const router = createRouter({
       name: 'logout',
       component: Login,
       beforeEnter: (to, from, next) => {
-        auth.logout();
-        next({path: '/login'})
+        store.dispatch('authStore/logOut');
+        next({path: '/'})
       }
     },
     {
@@ -59,14 +60,31 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const {requiredRoles} = to.meta;
 
+  const isAuthenticated = store.getters['authStore/isAuthenticated'];
+  const userRoles = store.getters['authStore/getRoles'];
+
+  const isAuthorized = (requiredRoles) => {
+    if (requiredRoles && isAuthenticated) {
+        if (requiredRoles.length > 0) {
+            if (requiredRoles.includes(userRoles)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+  }
+
   if (!requiredRoles) {
     return next();
   }
 
-  if (auth.isAuthorized(requiredRoles)) {
+  if (isAuthorized(requiredRoles)) {
     next();
   } else {
-    if (auth.isAuthenticated()) {
+    if (isAuthenticated) {
       next({path: '/'});
     } else {
       next({path: '/login', query: {returnUrl: to.path}});
@@ -74,4 +92,4 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-export default router
+export default router;

@@ -9,12 +9,12 @@
 </template>
 
 <script>
-import auth from '../_helpers/auth'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'NavBar',
   computed: {
-    isLoggedIn: function(){return auth.isAuthenticated()}
+    ...mapGetters({isLoggedIn: 'authStore/isAuthenticated'})
   }
 }
 </script>
