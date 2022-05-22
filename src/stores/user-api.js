@@ -6,3 +6,9 @@ export const getUsers = () => {
         headers: auth.getHeader()
     })
 };
+
+export const getUserById = (id) => {
+  return Backend.get(`users/${id}`, {
+    headers: auth.getHeader()
+  })
+}

@@ -10,6 +10,7 @@
       <td>{{ user.id }}</td>
       <td>{{ user.name }}</td>
       <td>{{ user.role }}</td>
+      <router-link :to="`/admin/users/${user.id}`">View</router-link>
     </tr>
   </table>
 </template>
