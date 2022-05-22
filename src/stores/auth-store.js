@@ -43,6 +43,9 @@ export const authStore = {
         },
         isAuthenticated(state) {
           return !!state.token;
+        },
+        isAdmin(state) {
+          return state.roles == 'ADMIN'
         }
     }
 }

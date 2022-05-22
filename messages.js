@@ -17,6 +17,14 @@ export const messages = {
             role: "Role",
             enterRole: "Enter role",
             submit: "Submit"
+        },
+        users: {
+            usersList: "All users",
+            columns: {
+                id: "Id",
+                name: "Username",
+                role: "Role"
+            }
         }
     }
 }
