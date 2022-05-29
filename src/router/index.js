@@ -46,7 +46,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/store/register',
+      path: '/register',
       name: 'register',
       component: RegistrationView,
     },
@@ -61,6 +61,12 @@ const router = createRouter({
       name: 'user',
       component: UserViewVue,
       meta: {requiredRoles: [Role.Admin]}
+    },
+    {
+      path: '/cart/:orderID',
+      name: 'cart',
+      component: () => import('../views/CartView.vue'),
+      meta: {requiredRoles: []}
     }
   ]
 })

@@ -5,6 +5,7 @@
     <router-link to="/logout" class="nav-item" v-if="isLoggedIn">Logout</router-link>
     <router-link to="/login" class="nav-item" v-else>Login</router-link>
     <router-link to="/admin/users" class="nav-item" v-if="isAdmin">Users</router-link>
+    <router-link to="/register" class="nav-item" v-if="!isLoggedIn">Register</router-link>
   </div>
 
 </template>
