@@ -17,7 +17,7 @@ export const addProduct = (itemId, orderId, quantity) => {
 export const createOrder = () => {
     return Backend.post("order/create", {} ,{
         headers: auth.getHeader(),
-        params: { address: "fake address", deliveryTime: "2007-12-03T10:15:30+01:00", clientId: auth.getId()}
+        params: { address: "fake address", deliveryTime: "2007-12-03T10:15:30+01:00", clientId: auth.getClientId()}
     })
 };
 

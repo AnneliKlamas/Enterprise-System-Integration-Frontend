@@ -41,6 +41,12 @@ export const authStore = {
         getId(state){
           return state.user.id
         },
+        getClientId(state){
+            return state.user.clientId
+        },
+        getUser(state){
+            return state.user
+        },
         isAuthenticated(state) {
           return !!state.token;
         },

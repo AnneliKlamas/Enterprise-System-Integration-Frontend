@@ -10,7 +10,10 @@ export default {
             return {};
         }
     },
-    getId(){
-        return store.getters['authStore/getId']
+    getClientId(){
+        return store.getters['authStore/getClientId']
+    },
+    getUser(){
+        return store.getters['authStore/getUser']
     }
 }

@@ -28,6 +28,12 @@ export const messages = {
                 name: "Username",
                 role: "Role"
             }
+        },
+        client: {
+            profile: "Your profile",
+            name: "Your name",
+            submit: "Update profile",
+            order: "Your orders"
         }
     }
 }
