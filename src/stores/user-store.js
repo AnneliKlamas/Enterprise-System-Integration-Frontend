@@ -6,7 +6,7 @@ export const userStore = {
     state() {
         return {
             users: [],
-            user: []
+            user: {}
         }
     },
 
@@ -25,7 +25,6 @@ export const userStore = {
             commit("setUsers", response.data)
         },
         async fetchUserById({commit}, id) {
-          console.log(id)
           let response = await userApi.getUserById(id)
           commit("setUser", response.data)
         }

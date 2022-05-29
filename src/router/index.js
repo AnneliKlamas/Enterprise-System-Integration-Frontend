@@ -5,7 +5,8 @@ import { Role } from '../_helpers/role'
 import store from '../stores/store-config'
 import RegistrationView from "../views/RegistrationView.vue";
 import UsersView from '../views/UsersView.vue'
-import UserViewVue from '../views/UserView.vue'
+import UserView from '../views/UserView.vue'
+import CreateUserView from '../views/CreateUserView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -59,7 +60,13 @@ const router = createRouter({
     {
       path: '/admin/users/:id',
       name: 'user',
-      component: UserViewVue,
+      component: UserView,
+      meta: {requiredRoles: [Role.Admin]}
+    },
+    {
+      path: '/admin/users/create',
+      name: 'createUser',
+      component: CreateUserView,
       meta: {requiredRoles: [Role.Admin]}
     },
     {
