@@ -5,13 +5,17 @@ export const userStore = {
 
     state() {
         return {
-            users: []
+            users: [],
+            user: {}
         }
     },
 
     mutations: {
         setUsers(state, users) {
             state.users = users
+        },
+        setUser(state, user) {
+          state.user = user
         },
         setLoggedOut(state) {
             state.users = null
@@ -23,6 +27,10 @@ export const userStore = {
             let response = await userApi.getUsers()
             commit("setUsers", response.data)
         },
+        async fetchUserById({commit}, id) {
+          let response = await userApi.getUserById(id)
+          commit("setUser", response.data)
+        },
         logOut({commit}) {
             commit("setLoggedOut");
         }
@@ -30,7 +38,10 @@ export const userStore = {
 
     getters: {
         getUsers(state){
-            return state.users
+          return state.users
+        },
+        getUser(state){
+          return state.user
         }
     }
 }

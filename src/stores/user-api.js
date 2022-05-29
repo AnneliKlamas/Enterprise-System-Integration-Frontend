@@ -6,3 +6,21 @@ export const getUsers = () => {
         headers: auth.getHeader()
     })
 };
+
+export const getUserById = (id) => {
+  return Backend.get(`users/${id}`, {
+    headers: auth.getHeader()
+  })
+};
+
+export const updateUser = (id, user) => {
+  return Backend.post(`users/${id}`, user, {
+    headers: auth.getHeader()
+  })
+};
+
+export const createUser = (user) => {
+  return Backend.post('users', user, {
+    headers: auth.getHeader()
+  })
+}
