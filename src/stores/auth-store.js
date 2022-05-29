@@ -3,34 +3,25 @@ export const authStore = {
 
     state() {
         return {
-            username: "",
-            token: "",
-            roles: "",
-            id: null,
-            clientId: null
+            user: {},
+            token: ""
         }
     },
 
     mutations: {
-        setLoggedIn(state, user) {
-          state.username = user.username,
-          state.token = user.token,
-          state.roles = user.roles,
-          state.id = user.id,
-          state.clientId = user.clientId
+        setLoggedIn(state, {user, token}) {
+          state.user = user,
+          state.token = token
         },
         setLoggedOut(state) {
-          state.username = null,
-          state.token = null,
-          state.roles = null,
-          state.id = null,
-          state.clientId = null
+          state.user = {},
+          state.token = ""
         }
     },
 
     actions: {
-        logIn({commit}, user) {
-          commit("setLoggedIn", user);
+        logIn({commit}, payload) {
+          commit("setLoggedIn", payload);
         },
         logOut({commit}) {
           commit("setLoggedOut");
@@ -39,25 +30,25 @@ export const authStore = {
 
     getters: {
         getUsername(state) {
-          return state.username;
+          return state.user.username;
         },
         getToken(state) {
           return state.token;
         },
-        getRoles(state) {
-          return state.roles;
+        getRole(state) {
+          return state.user.role;
         },
         getId(state){
-            return state.id
+          return state.user.id
         },
         getClientId(state){
-            return state.clientId
+            return state.user.clientId
         },
         isAuthenticated(state) {
           return !!state.token;
         },
         isAdmin(state) {
-          return state.roles == 'ADMIN'
+          return state.user.role == 'ADMIN'
         }
     }
 }

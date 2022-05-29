@@ -38,11 +38,8 @@ export default {
         .then(response => {
 
             this.logIn({
-              username: this.username,
-              token: token,
-              roles: response.data[0],
-              id: response.data[1][0],
-              clientId: response.data[1][1]
+              user: response.data,
+              token: token
             });
 
             this.$router.push({path: this.$route.query.returnUrl || '/'});

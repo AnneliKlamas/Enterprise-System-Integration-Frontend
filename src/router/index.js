@@ -6,6 +6,8 @@ import { Role } from '../_helpers/role'
 import store from '../stores/store-config'
 import RegistrationView from "../views/RegistrationView.vue";
 import UsersView from '../views/UsersView.vue'
+import UserView from '../views/UserView.vue'
+import CreateUserView from '../views/CreateUserView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -66,6 +68,18 @@ const router = createRouter({
       meta: {requiredRoles: [Role.Admin]}
     },
     {
+      path: '/admin/users/:id',
+      name: 'user',
+      component: UserView,
+      meta: {requiredRoles: [Role.Admin]}
+    },
+    {
+      path: '/admin/users/create',
+      name: 'createUser',
+      component: CreateUserView,
+      meta: {requiredRoles: [Role.Admin]}
+    },
+    {
       path: '/cart/:orderID',
       name: 'cart',
       component: () => import('../views/CartView.vue'),
@@ -78,12 +92,12 @@ router.beforeEach((to, from, next) => {
   const {requiredRoles} = to.meta;
 
   const isAuthenticated = store.getters['authStore/isAuthenticated'];
-  const userRoles = store.getters['authStore/getRoles'];
+  const userRole = store.getters['authStore/getRole'];
 
   const isAuthorized = (requiredRoles) => {
     if (requiredRoles && isAuthenticated) {
         if (requiredRoles.length > 0) {
-            if (requiredRoles.includes(userRoles[0])) {
+            if (requiredRoles.includes(userRole)) {
                 return true;
             } else {
                 return false;

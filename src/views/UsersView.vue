@@ -10,8 +10,10 @@
       <td>{{ user.id }}</td>
       <td>{{ user.name }}</td>
       <td>{{ user.role }}</td>
+      <router-link :to="`/admin/users/${user.id}`">Edit</router-link>
     </tr>
   </table>
+  <router-link to="/admin/users/create">Create user</router-link>
 </template>
 
 <script>
