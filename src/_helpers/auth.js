@@ -9,5 +9,8 @@ export default {
         } else {
             return {};
         }
+    },
+    getId(){
+        return store.getters['authStore/getId']
     }
 }

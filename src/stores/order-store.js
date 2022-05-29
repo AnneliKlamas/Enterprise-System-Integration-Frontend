@@ -13,12 +13,18 @@ export const orderStore = {
         setOrder(state, order) {
             state.order = order
         },
+        setLoggedOut(state) {
+            state.order = null
+        }
     },
 
     actions: {
         async fetchOrder({commit}, orderId) {
             let response = await productApi.getOrder(orderId)
             commit("setOrder", response.data)
+        },
+        logOut({commit}) {
+            commit("setLoggedOut");
         }
     },
 

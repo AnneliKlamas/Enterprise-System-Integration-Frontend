@@ -16,6 +16,9 @@ export const userStore = {
         },
         setUser(state, user) {
           state.user = user
+        },
+        setLoggedOut(state) {
+            state.users = null
         }
     },
 
@@ -27,6 +30,9 @@ export const userStore = {
         async fetchUserById({commit}, id) {
           let response = await userApi.getUserById(id)
           commit("setUser", response.data)
+        },
+        logOut({commit}) {
+            commit("setLoggedOut");
         }
     },
 
