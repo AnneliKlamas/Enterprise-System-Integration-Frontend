@@ -85,12 +85,12 @@ router.beforeEach((to, from, next) => {
   const {requiredRoles} = to.meta;
 
   const isAuthenticated = store.getters['authStore/isAuthenticated'];
-  const userRoles = store.getters['authStore/getRoles'];
+  const userRole = store.getters['authStore/getRole'];
 
   const isAuthorized = (requiredRoles) => {
     if (requiredRoles && isAuthenticated) {
         if (requiredRoles.length > 0) {
-            if (requiredRoles.includes(userRoles[0])) {
+            if (requiredRoles.includes(userRole)) {
                 return true;
             } else {
                 return false;
