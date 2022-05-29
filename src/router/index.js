@@ -41,6 +41,9 @@ const router = createRouter({
       component: Login,
       beforeEnter: (to, from, next) => {
         store.dispatch('authStore/logOut');
+        store.dispatch('orderStore/logOut');
+        store.dispatch('productStore/logOut');
+        store.dispatch('userStore/logOut');
         next({path: '/'})
       }
     },
