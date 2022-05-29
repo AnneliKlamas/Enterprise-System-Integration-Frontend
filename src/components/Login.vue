@@ -43,6 +43,7 @@ export default {
             });
 
             this.$router.push({path: this.$route.query.returnUrl || '/'});
+            this.$store.dispatch('productStore/fetchProducts')
         })
         .catch(error => {
             console.log(error);
