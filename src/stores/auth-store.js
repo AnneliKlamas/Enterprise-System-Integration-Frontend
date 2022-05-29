@@ -6,7 +6,8 @@ export const authStore = {
             username: "",
             token: "",
             roles: "",
-            id: null
+            id: null,
+            clientId: null
         }
     },
 
@@ -15,13 +16,15 @@ export const authStore = {
           state.username = user.username,
           state.token = user.token,
           state.roles = user.roles,
-          state.id = user.id
+          state.id = user.id,
+          state.clientId = user.clientId
         },
         setLoggedOut(state) {
           state.username = null,
           state.token = null,
           state.roles = null,
-          state.id = null
+          state.id = null,
+          state.clientId = null
         }
     },
 
@@ -46,6 +49,9 @@ export const authStore = {
         },
         getId(state){
             return state.id
+        },
+        getClientId(state){
+            return state.clientId
         },
         isAuthenticated(state) {
           return !!state.token;

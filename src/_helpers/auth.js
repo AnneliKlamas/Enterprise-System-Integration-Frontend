@@ -12,5 +12,8 @@ export default {
     },
     getId(){
         return store.getters['authStore/getId']
+    },
+    getClientId(){
+        return store.getters['authStore/getClientId']
     }
 }

@@ -28,6 +28,10 @@ export const messages = {
                 name: "Username",
                 role: "Role"
             }
+        },
+        clients: {
+            name: "Your name",
+            submit: "Update profile"
         }
     }
 }

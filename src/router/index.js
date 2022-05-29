@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../components/Login.vue'
+import Profile from '../views/ProfileView.vue'
 import HomeView from '../views/HomeView.vue'
 import { Role } from '../_helpers/role'
 import store from '../stores/store-config'
@@ -36,6 +37,11 @@ const router = createRouter({
       component: Login
     },
     {
+      path: '/profile',
+      name: 'profile',
+      component: Profile
+    },
+    {
       path: '/logout',
       name: 'logout',
       component: Login,
@@ -44,6 +50,7 @@ const router = createRouter({
         store.dispatch('orderStore/logOut');
         store.dispatch('productStore/logOut');
         store.dispatch('userStore/logOut');
+        store.dispatch('clientStore/logOut');
         next({path: '/'})
       }
     },
