@@ -16,6 +16,10 @@ export const productStore = {
         },
         setOrderId(state, id) {
             state.orderId = id
+        },
+        setLoggedOut(state) {
+            state.products = null,
+            state.orderId = null
         }
     },
 
@@ -23,6 +27,9 @@ export const productStore = {
         async fetchProducts({commit}) {
             let response = await productApi.getProducts()
             commit("setProducts", response.data)
+        },
+        logOut({commit}) {
+            commit("setLoggedOut");
         }
     },
 

@@ -13,12 +13,18 @@ export const userStore = {
         setUsers(state, users) {
             state.users = users
         },
+        setLoggedOut(state) {
+            state.users = null
+        }
     },
 
     actions: {
         async fetchUsers({commit}) {
             let response = await userApi.getUsers()
             commit("setUsers", response.data)
+        },
+        logOut({commit}) {
+            commit("setLoggedOut");
         }
     },
 
