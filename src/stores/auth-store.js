@@ -52,6 +52,12 @@ export const authStore = {
         },
         isAdmin(state) {
           return state.user.role == 'ADMIN'
+        },
+        isClient(state) {
+          return state.user.role == 'CLIENT'
+        },
+        isManager(state) {
+          return state.user.role == 'MANAGER'
         }
     }
 }
