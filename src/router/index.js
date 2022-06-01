@@ -80,9 +80,15 @@ const router = createRouter({
       meta: {requiredRoles: [Role.Admin]}
     },
     {
-      path: '/cart/:orderID',
+      path: '/cart',
       name: 'cart',
       component: () => import('../views/CartView.vue'),
+      meta: {requiredRoles: []}
+    },
+    {
+      path: '/checkout',
+      name: 'checkout',
+      component: () => import('../views/CheckoutView.vue'),
       meta: {requiredRoles: []}
     }
   ]

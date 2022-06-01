@@ -1,15 +1,13 @@
 <template>
-  <h1 v-text="$t('client.profile')"></h1>
-  <br>
-  <div id="clientNameForm">
+  <h1 class="m-4" v-text="$t('client.profile')"></h1>
+  <div class="ms-4" id="clientNameForm">
     <div class="form-group">
       <label>{{$t("client.name")}}</label>
       <input v-model="clientName" type="text" class="form-control" :placeholder="getClientName">
     </div>
-    <button @click="submit" class="btn btn-primary">{{ $t("client.submit") }}</button>
+    <button @click="submit" class="btn btn-primary mt-3">{{ $t("client.submit") }}</button>
   </div>
-  <br>
-  <div id="ordersTableHeader">
+  <div class="m-4" id="ordersTableHeader">
     <h2 v-text="$t('client.order')"></h2>
   </div>
   <div id="ordersTableBody" v-for="order in getOrders" :key="order.id">
@@ -88,7 +86,6 @@ export default {
         })
       },
     async submit() {
-      console.log(this.clientName)
       await clientApi.updateClient(this.clientName)
       location.reload()
     },

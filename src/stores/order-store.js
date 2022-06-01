@@ -5,7 +5,8 @@ export const orderStore = {
 
     state() {
         return {
-            order: null
+            order: null,
+            orderProducts: []
         }
     },
 
@@ -15,7 +16,7 @@ export const orderStore = {
         },
         setLoggedOut(state) {
             state.order = null
-        }
+        },
     },
 
     actions: {
@@ -31,6 +32,6 @@ export const orderStore = {
     getters: {
         getOrder(state){
             return state.order
-        }
+        },
     }
 }
