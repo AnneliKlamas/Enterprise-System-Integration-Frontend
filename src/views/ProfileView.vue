@@ -1,15 +1,13 @@
 <template>
-  <h1 v-text="$t('client.profile')"></h1>
-  <br>
-  <div id="clientNameForm">
+  <h1 class="m-4" v-text="$t('client.profile')"></h1>
+  <div class="ms-4" id="clientNameForm">
     <div class="form-group">
       <label>{{$t("client.name")}}</label>
       <input v-model="clientName" type="text" class="form-control" :placeholder="getClientName">
     </div>
-    <button @click="submit" class="btn btn-primary">{{ $t("client.submit") }}</button>
+    <button @click="submit" class="btn btn-primary mt-3">{{ $t("client.submit") }}</button>
   </div>
-  <br>
-  <div id="ordersTableHeader">
+  <div class="m-4" id="ordersTableHeader">
     <h2 v-text="$t('client.order')"></h2>
   </div>
   <div id="ordersTableBody" v-for="order in getOrders" :key="order.id">
@@ -56,6 +54,9 @@ import auth from "../_helpers/auth";
 import {getProduct} from "../_helpers/products";
 
 const { mapGetters, mapActions} = createNamespacedHelpers("clientStore")
+const { mapGetters: mapAuthGetters} = createNamespacedHelpers("authStore")
+import * as productApi from "../stores/product-api.js"
+
 export default {
   name: "ProfileView",
 
@@ -70,15 +71,22 @@ export default {
     ...mapGetters({
       getClientName: "getName",
       getOrders: "getOrders"
+    }),
+    ...mapAuthGetters({
+      clientId: "getId"
     })
   },
 
-  beforeMount() {
-    this.getClient()
+  async beforeMount() {
+    await this.getClient()
+    this.clientOrders = await productApi.getClientOrders(this.clientId)
   },
 
   methods:{
-    ...mapActions(["fetchClient"]),
+    ...mapActions({
+      fetchClient: "fetchClient"
+    }),
+
     getClient: async function() {
       await clientApi.getClient(auth.getClientId()).then(response => {
           this.fetchClient({
@@ -88,7 +96,6 @@ export default {
         })
       },
     async submit() {
-      console.log(this.clientName)
       await clientApi.updateClient(this.clientName)
       location.reload()
     },

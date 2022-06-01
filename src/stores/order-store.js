@@ -5,7 +5,8 @@ export const orderStore = {
 
     state() {
         return {
-            order: null
+            order: null,
+            orderProducts: []
         }
     },
 
@@ -15,11 +16,15 @@ export const orderStore = {
         },
         setLoggedOut(state) {
             state.order = null
-        }
+        },
     },
 
     actions: {
         async fetchOrder({commit}, orderId) {
+            let response = await productApi.getOrder(orderId)
+            commit("setOrder", response.data)
+        },
+        async fetchClientOrders({commit}, orderId) {
             let response = await productApi.getOrder(orderId)
             commit("setOrder", response.data)
         },
@@ -31,6 +36,6 @@ export const orderStore = {
     getters: {
         getOrder(state){
             return state.order
-        }
+        },
     }
 }
