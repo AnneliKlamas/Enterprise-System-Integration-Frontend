@@ -7,9 +7,14 @@ export const getProducts = () => {
     })
 };
 
-export const createOrder = (order) => {
-    return Backend.post("order/create", order ,{
-        headers: auth.getHeader()
+export const createOrder = (products, deliveryDate, clientId, address ) => {
+    return Backend.post("order/create", {data: products} ,{
+        headers: auth.getHeader(),
+        params: {
+            deliveryDate: deliveryDate,
+            clientId: clientId,
+            address: address
+        }
     })
 };
 

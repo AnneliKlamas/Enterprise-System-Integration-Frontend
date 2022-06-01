@@ -50,13 +50,7 @@ export default {
 
   methods: {
     createOrder() {
-      const order = {
-        address: this.address,
-        deliveryTime: this. date,
-        clientId: this.userId,
-        products: this.products
-      }
-      productApi.createOrder(order)
+      productApi.createOrder(this.products, this.date, this.userId, this.address )
     }
   }
 }
