@@ -73,7 +73,7 @@ export default {
       getOrders: "getOrders"
     }),
     ...mapAuthGetters({
-      clientId: "getId"
+      clientId: "getClientId"
     })
   },
 

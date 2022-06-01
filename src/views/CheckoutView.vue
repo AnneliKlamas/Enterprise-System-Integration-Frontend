@@ -42,7 +42,7 @@ export default {
       products: "getOrderProducts",
     }),
     ...mapAuthGetters({
-      userId: "getId"
+      clientId: "getClientId"
     })
   },
 
@@ -50,7 +50,7 @@ export default {
 
   methods: {
     createOrder() {
-      productApi.createOrder(this.products, this.date, this.userId, this.address )
+      productApi.createOrder(this.products, this.date, this.clientId, this.address )
     }
   }
 }
