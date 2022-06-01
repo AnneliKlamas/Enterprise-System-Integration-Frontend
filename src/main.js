@@ -8,6 +8,9 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
 const app = createApp(App)
 const i18n = createI18n({
     locale: "en",
@@ -16,5 +19,7 @@ const i18n = createI18n({
 app.use(router)
 app.use(store)
 app.use(i18n)
+// eslint-disable-next-line vue/multi-word-component-names
+app.component('Datepicker', Datepicker);
 
 app.mount('#app')

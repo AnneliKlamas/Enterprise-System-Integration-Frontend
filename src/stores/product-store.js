@@ -6,7 +6,8 @@ export const productStore = {
     state() {
         return {
             products: [],
-            orderId: null
+            orderId: null,
+            orderProducts: [],
         }
     },
 
@@ -20,6 +21,31 @@ export const productStore = {
         setLoggedOut(state) {
             state.products = null,
             state.orderId = null
+        },
+        addProductToOrderProducts(state, product) {
+            let hasAlreadyThatItem = false;
+            state.orderProducts.forEach((p) => {
+                if(p.id === product.id) {
+                    p.quantity += product.quantity
+                    hasAlreadyThatItem = true
+                }
+            })
+            if (!hasAlreadyThatItem) {
+                state.orderProducts.push(product)
+            }
+        },
+        removeProductFromOrder(state, id) {
+            state.orderProducts = state.orderProducts.filter((p) => p.id!==id)
+        },
+        changeOrderProductQuantity(state, {id, quantity}) {
+            state.orderProducts.forEach((p) => {
+                if(p.id === id) {
+                    p.quantity = quantity
+                }
+            })
+        },
+        removeAllOrderProducts(state) {
+            state.orderProducts = []
         }
     },
 
@@ -29,6 +55,7 @@ export const productStore = {
             commit("setProducts", response.data)
         },
         logOut({commit}) {
+            commit("removeAllOrderProducts")
             commit("setLoggedOut");
         }
     },
@@ -39,6 +66,15 @@ export const productStore = {
         },
         getOrderId(state) {
             return state.orderId;
+        },
+        getOrderProducts(state) {
+            return state.orderProducts
+        },
+        getTotalPrice(state) {
+            let total = 0;
+            state.orderProducts.forEach((p) => total += p.price * p.quantity )
+
+            return Math.round(total*100)/100
         }
     }
 }

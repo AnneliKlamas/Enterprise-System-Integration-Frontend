@@ -1,7 +1,7 @@
-<template>
-  <h2>{{$t("products.productsList")}}</h2>
-  <router-link v-if="orderId"  :to="'/cart/' + orderId"> Click here to see your cart</router-link>
-  <table class="table">
+<template class="m-4">
+  <h2 class="m-4">{{$t("products.productsList")}}</h2>
+  <router-link class="m-4" v-if="orderProducts.length!==0"  :to="'/cart'"> Click here to see your cart</router-link>
+  <table class="table m-4">
     <tr>
       <th v-for="(column, index) in columns" :key="index">
         {{$t("products.columns."+column)}}
@@ -16,7 +16,7 @@
         <input v-model="quantity" class="form-control" type="number"/>
       </td>
       <td>
-        <button @click="addProduct(product.id)" >{{$t("products.add")}}</button>
+        <button class="btn btn-outline-success" @click="addProduct(product)" >{{$t("products.add")}}</button>
       </td>
     </tr>
   </table>
@@ -24,7 +24,6 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex"
-import * as productsApi from "../stores/product-api";
 
 const { mapGetters, mapActions, mapMutations } = createNamespacedHelpers("productStore")
 export default {
@@ -41,7 +40,8 @@ export default {
   computed: {
     ...mapGetters({
       products: "getProducts",
-      orderId: "getOrderId"
+      orderId: "getOrderId",
+      orderProducts: "getOrderProducts"
     })
   },
 
@@ -55,16 +55,20 @@ export default {
     }),
 
     ...mapMutations({
-      setOrderId: "setOrderId"
+      setOrderId: "setOrderId",
+      addProductToOrderProducts: "addProductToOrderProducts"
     }),
 
 
-    async addProduct(id) {
-      if(this.orderId === null) {
-        await productsApi.createOrder().then((response) =>
-        this.setOrderId(response.data))
-      }
-      await productsApi.addProduct(id, this.orderId, this.quantity)
+    addProduct(product) {
+      const productWithQuantity = {
+        id: product.id,
+        name: product.name,
+        category: product.category,
+        price: product.price,
+        quantity: this.quantity
+      };
+      this.addProductToOrderProducts(productWithQuantity)
       this.quantity=1
     }
   }

@@ -8,6 +8,8 @@
     <router-link to="/login" class="nav-item" v-else>Login</router-link>
     <router-link to="/admin/users" class="nav-item" v-if="isAdmin">Users</router-link>
     <router-link to="/register" class="nav-item" v-if="!isLoggedIn">Register</router-link>
+    <router-link to="/cart" class="nav-item" v-if="getOrderProducts.length!==0">Cart</router-link>
+
   </div>
 
 </template>
@@ -20,7 +22,8 @@ export default {
   computed: {
     ...mapGetters({
       isLoggedIn: 'authStore/isAuthenticated',
-      isAdmin: 'authStore/isAdmin'
+      isAdmin: 'authStore/isAdmin',
+      getOrderProducts: 'productStore/getOrderProducts',
       })
   }
 }
