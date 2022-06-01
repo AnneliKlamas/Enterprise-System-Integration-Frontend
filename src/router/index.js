@@ -32,7 +32,7 @@ const router = createRouter({
       path: '/products',
       name: 'products',
       component: () => import('../views/ProductsView.vue'),
-      meta: {requiredRoles: []}
+      meta: {requiredRoles: [Role.Client]}
     },
     {
       path: '/login',
@@ -81,22 +81,22 @@ const router = createRouter({
       meta: {requiredRoles: [Role.Admin]}
     },
     {
-      path: '/admin/warehouse',
+      path: '/warehouse',
       name: 'warehouse',
       component: WarehouseView,
-      meta: {requiredRoles: [Role.Admin]}
+      meta: {requiredRoles: [Role.Admin, Role.Manager]}
     },
     {
       path: '/cart',
       name: 'cart',
       component: () => import('../views/CartView.vue'),
-      meta: {requiredRoles: []}
+      meta: {requiredRoles: [Role.Client]}
     },
     {
       path: '/checkout',
       name: 'checkout',
       component: () => import('../views/CheckoutView.vue'),
-      meta: {requiredRoles: []}
+      meta: {requiredRoles: [Role.Client]}
     }
   ]
 })
