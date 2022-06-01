@@ -14,6 +14,18 @@ export const addProduct = (itemId, orderId, quantity) => {
     })
 };
 
+export const updateProduct = (id, product) => {
+    return Backend.post(`products/${id}`, product,{
+        headers: auth.getHeader(),
+    })
+};
+
+export const createProduct = (product) => {
+    return Backend.post("products/",  product,{
+        headers: auth.getHeader(),
+    })
+};
+
 export const createOrder = () => {
     return Backend.post("order/create", {} ,{
         headers: auth.getHeader(),

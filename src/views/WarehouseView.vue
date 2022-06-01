@@ -1,5 +1,5 @@
 <template>
-  <h2>{{$t("products.productsList")}}</h2>
+  <h2>Warehouse</h2>
   <router-link v-if="orderId"  :to="'/cart/' + orderId"> Click here to see your cart</router-link>
   <table class="table">
     <tr>
@@ -7,24 +7,49 @@
         {{$t("products.columns."+column)}}
       </th>
     </tr>
-    <tr v-for="(product, index) in products" :key="index">
-      <td>{{ product.id }}</td>
-      <td>{{ product.name }}</td>
-      <td>{{ product.category }}</td>
-      <td>{{ product.price }}</td>
+    <tr v-if="newProduct">
+      <td></td>
       <td>
-        <input v-model="quantity" class="form-control" type="number"/>
+        <input v-model="newProductName" type="text" class="form-control">
       </td>
       <td>
-        <button @click="addProduct(product.id)" >{{$t("products.add")}}</button>
+        <input v-model="newProductCategory" type="text" class="form-control">
+      </td>
+      <td>
+        <input v-model="newProductPrice" type="number" class="form-control">
+      </td>
+      <td>
+        <button @click="submitNewProduct" class="btn btn-outline-success" >Add</button>
+      </td>
+    </tr>
+    <tr v-for="(product, index) in products" :key="index">
+      <td>{{ product.id }}</td>
+      <td v-if="updateIndex!==index">{{ product.name }}</td>
+      <td v-else>
+        <input v-model="updateProductName" type="text" class="form-control">
+      </td>
+      <td v-if="updateIndex!==index">{{ product.category }}</td>
+      <td v-else>
+        <input v-model="updateProductCategory" type="text" class="form-control">
+      </td>
+      <td v-if="updateIndex!==index">{{ product.price }}</td>
+      <td v-else>
+        <input v-model="updateProductPrice" type="number" class="form-control">
+      </td>
+      <td v-if="updateIndex!==index">
+        <button  @click="updateProduct(index, product)" class="btn btn-outline-success" >Update</button>
+      </td>
+      <td v-else>
+        <button  @click="updateProductInfo(product.id)" class="btn btn-outline-success" >Update</button>
       </td>
     </tr>
   </table>
+  <button v-if="!newProduct" @click="addProduct()" class="btn btn-outline-success" >Add</button>
 </template>
 
 <script>
 import { createNamespacedHelpers } from "vuex"
-import * as productsApi from "../stores/product-api";
+import * as productApi from "../stores/product-api"
 
 const { mapGetters, mapActions, mapMutations } = createNamespacedHelpers("productStore")
 export default {
@@ -33,8 +58,15 @@ export default {
   data() {
     return {
       columns: ["ID", "NAME", "CATEGORY", "PRICE"],
-      quantity: 1,
       product: null,
+      newProduct: false,
+      newProductName: null,
+      newProductCategory: null,
+      newProductPrice: null,
+      updateIndex: null,
+      updateProductName: null,
+      updateProductCategory: null,
+      updateProductPrice: null,
     }
   },
 
@@ -58,14 +90,49 @@ export default {
       setOrderId: "setOrderId"
     }),
 
+    addProduct() {
+      this.newProduct = true
+    },
 
-    async addProduct(id) {
-      if(this.orderId === null) {
-        await productsApi.createOrder().then((response) =>
-            this.setOrderId(response.data))
+    async submitNewProduct() {
+
+      const product = {
+        name: this.newProductName,
+        category: this.newProductCategory,
+        price: this.newProductPrice
       }
-      await productsApi.addProduct(id, this.orderId, this.quantity)
-      this.quantity=1
+
+      await productApi.createProduct(product)
+      await this.fetchProducts()
+
+      this.newProduct = false
+      this.newProductName = null
+      this.newProductCategory = null
+      this.newProductPrice = null
+    },
+
+    updateProduct(index, product) {
+      this.updateProductName = product.name
+      this.updateProductCategory = product.category
+      this.updateProductPrice = product.price
+      this.updateIndex = index
+    },
+
+    async updateProductInfo(id) {
+      const product = {
+        name: this.updateProductName,
+        category: this.updateProductCategory,
+        price: this.updateProductPrice
+      }
+
+      await productApi.updateProduct(id, product)
+      await this.fetchProducts()
+
+      this.updateIndex = null
+      this.updateProductName = null
+      this.updateProductCategory = null
+      this.updateProductPrice = null
+
     }
   }
 }
