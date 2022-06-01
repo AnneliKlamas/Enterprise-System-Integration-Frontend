@@ -55,7 +55,7 @@ import {getProduct} from "../_helpers/products";
 
 const { mapGetters, mapActions} = createNamespacedHelpers("clientStore")
 const { mapGetters: mapAuthGetters} = createNamespacedHelpers("authStore")
-import * as productApi from "../stores/product-api"
+import * as productApi from "../stores/product-api.js"
 
 export default {
   name: "ProfileView",

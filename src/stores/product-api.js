@@ -24,8 +24,8 @@ export const getOrder = (orderId) => {
         params: { address: "fake address", deliveryTime: "2007-12-03T10:15:30+01:00" }})
 }
 
-export const getClientOrders = (clientId) => {
-    return Backend.get(`order/client/${clientId}`, {
+export const getClientOrders = (id) => {
+    return Backend.get(`order/client/${id}`, {
         headers: auth.getHeader()
     })
 }
