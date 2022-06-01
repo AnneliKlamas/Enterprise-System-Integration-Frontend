@@ -24,6 +24,10 @@ export const orderStore = {
             let response = await productApi.getOrder(orderId)
             commit("setOrder", response.data)
         },
+        async fetchClientOrders({commit}, orderId) {
+            let response = await productApi.getOrder(orderId)
+            commit("setOrder", response.data)
+        },
         logOut({commit}) {
             commit("setLoggedOut");
         }

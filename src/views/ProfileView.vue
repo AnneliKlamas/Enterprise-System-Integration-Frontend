@@ -54,6 +54,9 @@ import auth from "../_helpers/auth";
 import {getProduct} from "../_helpers/products";
 
 const { mapGetters, mapActions} = createNamespacedHelpers("clientStore")
+const { mapGetters: mapAuthGetters} = createNamespacedHelpers("authStore")
+import * as productApi from "../stores/product-api"
+
 export default {
   name: "ProfileView",
 
@@ -68,15 +71,22 @@ export default {
     ...mapGetters({
       getClientName: "getName",
       getOrders: "getOrders"
+    }),
+    ...mapAuthGetters({
+      clientId: "getId"
     })
   },
 
-  beforeMount() {
-    this.getClient()
+  async beforeMount() {
+    await this.getClient()
+    this.clientOrders = await productApi.getClientOrders(this.clientId)
   },
 
   methods:{
-    ...mapActions(["fetchClient"]),
+    ...mapActions({
+      fetchClient: "fetchClient"
+    }),
+
     getClient: async function() {
       await clientApi.getClient(auth.getClientId()).then(response => {
           this.fetchClient({
