@@ -13,6 +13,7 @@ const MonthYear = defineAsyncComponent(() => import('./CheckoutView.vue'));
 import { createNamespacedHelpers } from "vuex";
 const { mapGetters} = createNamespacedHelpers("productStore")
 const { mapGetters: mapAuthGetters} = createNamespacedHelpers("authStore")
+const { mapGetters: mapProductGetters, mapMutations: mapProductMutations } = createNamespacedHelpers("productStore")
 
 import * as productApi from "../stores/product-api.js"
 
@@ -43,14 +44,20 @@ export default {
     }),
     ...mapAuthGetters({
       clientId: "getClientId"
-    })
+    }),
+    ...mapProductGetters({
+      orderProducts: "getOrderProducts",
+      totalPrice: "getTotalPrice",
+    }),
   },
 
-
-
   methods: {
+    ...mapProductMutations({
+      cleanup: "removeAllOrderProducts",
+    }),
     createOrder() {
       productApi.createOrder(this.products, this.date, this.clientId, this.address )
+      this.cleanup()
     }
   }
 }
