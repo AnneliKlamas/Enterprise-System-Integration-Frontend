@@ -1,7 +1,8 @@
 <template>
   <div id="nav">
     <router-link to="/" class="nav-item">Home</router-link>
-    <router-link to="/products" class="nav-item">Products</router-link>
+    <router-link to="/products" class="nav-item" v-if="isLoggedIn&&!isAdmin">Products</router-link>
+    <router-link to="/admin/warehouse" class="nav-item" v-if="isAdmin">Warehouse</router-link>
     <router-link to="/logout" class="nav-item" v-if="isLoggedIn">Logout</router-link>
     <router-link to="/profile" class="nav-item" v-if="isLoggedIn">Profile</router-link>
     <router-link to="/login" class="nav-item" v-else>Login</router-link>

@@ -7,6 +7,13 @@ export const getProducts = () => {
     })
 };
 
+export const addProduct = (itemId, orderId, quantity) => {
+    return Backend.post("product-entry/add", { },{
+        headers: auth.getHeader(),
+        params: { itemId: itemId, orderId: orderId, quantity: quantity }
+    })
+};
+
 export const createOrder = (products, deliveryDate, clientId, address ) => {
     return Backend.post("order/create", { products: products } ,{
         headers: auth.getHeader(),
@@ -17,6 +24,19 @@ export const createOrder = (products, deliveryDate, clientId, address ) => {
         }
     })
 };
+
+export const updateProduct = (id, product) => {
+    return Backend.post(`products/${id}`, product,{
+        headers: auth.getHeader(),
+    })
+};
+
+export const createProduct = (product) => {
+    return Backend.post("products/",  product,{
+        headers: auth.getHeader(),
+    })
+};
+
 
 export const getOrder = (orderId) => {
     return Backend.get(`order/${orderId}`, {
