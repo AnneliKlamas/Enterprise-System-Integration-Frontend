@@ -8,6 +8,7 @@ import RegistrationView from "../views/RegistrationView.vue";
 import UsersView from '../views/UsersView.vue'
 import UserView from '../views/UserView.vue'
 import CreateUserView from '../views/CreateUserView.vue'
+import WarehouseView from "../views/WarehouseView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -77,6 +78,12 @@ const router = createRouter({
       path: '/admin/users/create',
       name: 'createUser',
       component: CreateUserView,
+      meta: {requiredRoles: [Role.Admin]}
+    },
+    {
+      path: '/admin/warehouse',
+      name: 'warehouse',
+      component: WarehouseView,
       meta: {requiredRoles: [Role.Admin]}
     },
     {
